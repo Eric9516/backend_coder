@@ -1,0 +1,26 @@
+[
+{
+    "title": "Teclado",
+    "price": 150,
+    "thumbnail": "https://s3-sa-east-1.amazonaws.com/saasargentina/hNxeGAHm23RfVYGse5P9/imagen",
+    "id": 1
+},
+{
+    "title": "Galaxy Z Flip",
+    "price": "1000",
+    "thumbnail": "https://coppelar.vtexassets.com/arquivos/ids/1733781-800-auto?v=637902944193570000&width=800&height=auto&aspect=true",
+    "id": 2
+},
+{
+    "title": "Macbook Pro",
+    "price": "1500",
+    "thumbnail": "https://cdn.pocket-lint.com/r/s/970x/assets/images/158839-laptops-review-apple-macbook-pro-14-inch-review-image2-ribxgzs9jt.jpg",
+    "id": 3
+},
+{
+    "title": "Impresora",
+    "price": 200,
+    "thumbnail": "http://d2r9epyceweg5n.cloudfront.net/stores/607/650/products/g3q47a1-188d1d0004e533407e15984583973290-640-0.jpg",
+    "id": 4
+}
+]
