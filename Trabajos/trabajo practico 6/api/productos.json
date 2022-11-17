@@ -1,0 +1,26 @@
+[
+   {
+      "nombre": "Pelota",
+      "precio": "500",
+      "image": "https://sporting.vtexassets.com/arquivos/ids/557628/6HM8141-000-1.jpg?v=637928169669670000",
+      "id": 1
+   },
+   {
+      "nombre": "Botines",
+      "precio": "1000",
+      "image": "https://img.planetafobal.com/2022/02/messi-botines-2022-adidas-x-speedflow-mi-historia-nm.jpg",
+      "id": 2
+   },
+   {
+      "nombre": "Camiseta",
+      "precio": "1000",
+      "image": "https://d22fxaf9t8d39k.cloudfront.net/8f10d7fa3ffc184cad51a5fab648c402591801bf5bd692513893a9c9e0f9a46952085.png",
+      "id": 3
+   },
+   {
+      "nombre": "Raqueta",
+      "precio": "300",
+      "image": "https://www.wilson.com/es-es/media/catalog/product/W/R/WR079210U__e629693bbcd00a6dbe13386825e11650.png",
+      "id": 4
+   }
+]
