@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="body_form">
+  <%- include('../partials/navbar'); %>
+  <h2>Ingrese un Producto</h2>
+
+  <form method="POST" action="/api/products">
+    <label for="title">Nombre</label>
+    <input type="text" id="title" name="title" />
+    <label for="price">Precio</label>
+    <input type="text" id="price" name="price" />
+    <label for="thumbnail">Foto URL</label>
+    <input type="text" id="thumbnail" name="thumbnail" />
+    <input type="submit" value="Enviar" />
+  </form>
+
+</body>
+
+</html>
