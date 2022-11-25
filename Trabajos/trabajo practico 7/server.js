@@ -72,3 +72,38 @@ routerProducts.delete("/:id", async (req, res) => {
 	await container.deleteById(id);
 	res.json("Producto borrado");
 });
+
+//Carrito-------------------------------------------------------
+const cartContainer = require("./containers/cartContainer");
+const cartCont = new cartContainer();
+
+routerCart.get("/", async (req, res) => {
+	const cartList = await cartCont.getAll();
+	res.render("pages/cart", { product: cartList });
+});
+
+routerCart.get("/:id", async (req, res) => {
+	const { id } = req.params;
+	const product = await cartCont.getById(id);
+	if (product) {
+		res.send({ success: true, product: product });
+	} else {
+		res.json({ error: true, msj: "id no encontrado" });
+	}
+});
+
+routerCart.post("/", async (req, res) => {
+	const body = req.body;
+	try {
+		const newProduct = await cartCont.save(body);
+		res.render("pages/products");
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+routerCart.delete("/:id", async (req, res) => {
+	const { id } = req.params;
+	await container.deleteById(id);
+	res.json("Producto borrado");
+});

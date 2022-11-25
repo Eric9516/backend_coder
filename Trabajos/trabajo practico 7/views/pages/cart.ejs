@@ -8,7 +8,7 @@
 <body class="body_products">
 
   <%- include('../partials/navbar'); %>
-  <%if(products.length > 0){%>
+  <%if(product.length > 0){%>
   <div class="contenedor_padre">
     <h1>Vista de productos</h1>
     <div class="encabezado">
@@ -17,14 +17,7 @@
       <h3>Precio</h3>
       <h3>Foto</h3>
     </div>
-    <% products.forEach((item)=>{ %>
-    <form action="/api/cart" method="post" class="form_cart">
-      <input type="text" name="id" value="<%=item.id%>" hidden>
-      <input type="text" name="title" value="<%=item.title%>" hidden>
-      <input type="text" name="price" value="<%=item.price%>" hidden>
-      <input type="text" name="thumbnail" value="<%=item.thumbnail%>" hidden>
-      <input type="submit" value="Al carrito" class="cart_submit">
-    </form>
+    <% product.forEach((item)=>{ %>
     <div class="contenedor_productos">
       <p><%=item.id%></p>
       <p><%=item.title%></p>
@@ -34,17 +27,10 @@
       </div>
     </div>
     <% }) %>
-    <div class="serchdelete_container">
-      <%-include("../partials/delete");%>
-      <%-include("../partials/search");%>
-    </div>
     <% }else{ %>
     <h2 class="lista_vacia">No se encontraron productos</h2>
     <% } %>
-
   </div>
-
-
 </body>
 <script src="/public/codigo.js"></script>
 

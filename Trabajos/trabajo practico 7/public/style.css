@@ -142,3 +142,12 @@ h1 {
 #id_modify {
 	width: 200px;
 }
+
+.form_cart {
+	position: absolute;
+	margin: 0;
+}
+
+.cart_submit {
+	padding: 20px;
+}
