@@ -1,4 +1,6 @@
 const fs = require("fs");
+const moment = require("moment");
+const timestamp = moment().format("h:mm a");
 
 class Contenedor {
 	constructor() {
@@ -20,6 +22,7 @@ class Contenedor {
 			const productos = await this.getAll();
 			const id = productos.length + 1;
 			producto.id = id;
+			producto.timestamp = timestamp;
 			productos.push(producto);
 			fs.promises.writeFile(this.archivo, JSON.stringify(productos, null));
 		} catch (e) {}

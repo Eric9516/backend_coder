@@ -58,7 +58,6 @@ btn_delete.addEventListener("click", () => {
 document.getElementById("submitCart").addEventListener("click", () => {
 	alert("Hola");
 });
-
 //Obtener producto con ID
 // btn_enviar.addEventListener("click", () => {
 // 	const id = document.getElementById("id").value;

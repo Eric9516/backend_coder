@@ -18,6 +18,7 @@ class contenedorCarrito {
 	save = async (producto) => {
 		try {
 			const productos = await this.getAll();
+			producto.id = productos.length + 1;
 			productos.push(producto);
 			fs.promises.writeFile(this.archivo, JSON.stringify(productos, null));
 		} catch (e) {
