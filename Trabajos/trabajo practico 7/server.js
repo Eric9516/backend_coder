@@ -102,8 +102,19 @@ routerCart.post("/", async (req, res) => {
 	}
 });
 
+routerCart.put("/:id", async (req, res) => {
+	try {
+		const id = req.params.id;
+		const { title, price, thumbnail } = req.body;
+		await cartCont.updateById(id, title, price, thumbnail);
+		res.json("El producto se actualizo correctamente");
+	} catch (error) {
+		res.json({ error: "Producto no encontrado" });
+	}
+});
+
 routerCart.delete("/:id", async (req, res) => {
 	const { id } = req.params;
-	await container.deleteById(id);
+	await cartCont.deleteById(id);
 	res.json("Producto borrado");
 });
