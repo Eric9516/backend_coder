@@ -19,7 +19,7 @@ app.use("/api/carrito", routerCart);
 
 app.get("/", (req, res) => {
 	res.send(
-		"Indique api/products para ver la lista de productos o api/cart para ver los productos del carrito"
+		"Indique api/productos para ver la lista de productos o api/carrito para ver los productos del carrito"
 	);
 });
 
@@ -142,6 +142,7 @@ routerCart.post(
 	}),
 	async (req, res) => {
 		const body = req.body;
+		console.log(body);
 		try {
 			const newProduct = await cartCont.save(body);
 			res.json({ success: true, msj: "Producto agregado al carrito" });
@@ -151,23 +152,13 @@ routerCart.post(
 	}
 );
 
-routerCart.post(
-	"/:id/productos",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		const { id } = req.params;
-		const productoPedido = await container.getById(+id);
-		await cartCont.save(productoPedido);
-		res.json({ msj: "Nuevo producto añadido al carrito" });
-	}
-);
+routerCart.post("/:id/productos", async (req, res) => {
+	const { id } = req.params;
+	const productoPedido = await container.getById(+id);
+	const body = productoPedido;
+	await cartCont.save(body);
+	res.json(productoPedido);
+});
 
 routerCart.put(
 	"/:id",
