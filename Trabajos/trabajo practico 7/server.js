@@ -6,7 +6,7 @@ const app = express();
 const Container = require("./containers/productContainer");
 const container = new Container();
 const PORT = process.env.PORT || 8080;
-const administrador = true;
+const verificacion = require("./config/midleware.js");
 
 const server = app.listen(PORT, () => {
 	console.log(`Servidor http escuchando en el puerto http://localhost:${PORT}`);
@@ -40,60 +40,38 @@ routerProducts.get("/:id", async (req, res) => {
 	}
 });
 
-routerProducts.post(
-	"/",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		const body = req.body;
-		try {
-			const newProduct = await container.save(body);
-			res.json({ success: true, msj: "Producto agregado correctamente" });
-		} catch (error) {
-			console.log(error);
-		}
+routerProducts.post("/", verificacion, async (req, res) => {
+	const body = req.body;
+	try {
+		const newProduct = await container.save(body);
+		res.json({ success: true, msj: "Producto agregado correctamente" });
+	} catch (error) {
+		console.log(error);
 	}
-);
+});
 
-routerProducts.put(
-	"/:id",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		try {
-			const id = req.params.id;
-			const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
-				req.body;
-			await container.updateById(
-				id,
-				timestramp,
-				nombre,
-				descripcion,
-				codigo,
-				foto,
-				precio,
-				stock
-			);
-			res.json("El producto se actualizo correctamente");
-		} catch (error) {
-			res.json({ error: "Producto no encontrado" });
-		}
+routerProducts.put("/:id", verificacion, async (req, res) => {
+	try {
+		const id = req.params.id;
+		const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
+			req.body;
+		await container.updateById(
+			id,
+			timestramp,
+			nombre,
+			descripcion,
+			codigo,
+			foto,
+			precio,
+			stock
+		);
+		res.json("El producto se actualizo correctamente");
+	} catch (error) {
+		res.json({ error: "Producto no encontrado" });
 	}
-);
+});
 
-routerProducts.delete("/:id", async (req, res) => {
+routerProducts.delete("/:id", verificacion, async (req, res) => {
 	const { id } = req.params;
 	await container.deleteById(id);
 	res.json("Producto borrado");
@@ -117,11 +95,11 @@ routerCart.get("/:id/productos", async (req, res) => {
 	const { id } = req.params;
 	const product = await cartCont.getById(id);
 	product
-		? res.json(product)
+		? res.json({ success: true, product })
 		: res.json({ error: true, msj: "id no encontrado" });
 });
 
-routerCart.post("/", async (req, res) => {
+routerCart.post("/", verificacion, async (req, res) => {
 	const bodyCart = req.body;
 	try {
 		const newProduct = await cartCont.save(bodyCart);
@@ -131,7 +109,7 @@ routerCart.post("/", async (req, res) => {
 	}
 });
 
-routerCart.post("/:id/productos", async (req, res) => {
+routerCart.post("/:id/productos", verificacion, async (req, res) => {
 	const { id } = req.params;
 	const productoPedido = await container.getById(+id);
 	const body = productoPedido;
@@ -139,39 +117,28 @@ routerCart.post("/:id/productos", async (req, res) => {
 	res.json(productoPedido);
 });
 
-routerCart.put(
-	"/:id",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		try {
-			const id = req.params.id;
-			const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
-				req.body;
-			await cartCont.updateById(
-				id,
-				timestramp,
-				nombre,
-				descripcion,
-				codigo,
-				foto,
-				precio,
-				stock
-			);
-			res.json("El producto se actualizo correctamente");
-		} catch (error) {
-			res.json({ error: "Producto no encontrado" });
-		}
+routerCart.put("/:id", verificacion, async (req, res) => {
+	try {
+		const id = req.params.id;
+		const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
+			req.body;
+		await cartCont.updateById(
+			id,
+			timestramp,
+			nombre,
+			descripcion,
+			codigo,
+			foto,
+			precio,
+			stock
+		);
+		res.json("El producto se actualizo correctamente");
+	} catch (error) {
+		res.json({ error: "Producto no encontrado" });
 	}
-);
+});
 
-routerCart.delete("/:id", async (req, res) => {
+routerCart.delete("/:id", verificacion, async (req, res) => {
 	const { id } = req.params;
 	await cartCont.deleteById(id);
 	res.json("Producto borrado");

@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "bce60ae9-4a6d-47b3-ad8b-a6a102739d5e",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24142233"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/productos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/productos/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/productos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/productos/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/productos/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito/1/productos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pelota\",\r\n    \"descripcion\": \"Pelota del mundial\",\r\n    \"codigo\": 1001,\r\n    \"foto\": \"https://losven.com.ar/wp-content/uploads/2022/09/pelota-removebg-preview.png\",\r\n    \"precio\": 10000,\r\n    \"strock\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/1/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"1",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito/3/productos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/3/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"3",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"C\",\r\n    \"descripcion\": \"Camiseta seleccion argentina\",\r\n    \"codigo\": 1000,\r\n    \"foto\": \"https://d3ugyf2ht6aenh.cloudfront.net/stores/001/312/744/products/etruyiuiiokjhjkln1-0da055d4a2feeee72416673260655982-1024-1024.png\",\r\n    \"precio\": 15500,\r\n    \"strock\": 15,\r\n    \"id\": 3,\r\n    \"timestamp\": \"7:04 pm\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"C\",\r\n    \"descripcion\": \"Camiseta seleccion argentina\",\r\n    \"codigo\": 1000,\r\n    \"foto\": \"https://d3ugyf2ht6aenh.cloudfront.net/stores/001/312/744/products/etruyiuiiokjhjkln1-0da055d4a2feeee72416673260655982-1024-1024.png\",\r\n    \"precio\": 15500,\r\n    \"strock\": 15,\r\n    \"id\": 3,\r\n    \"timestamp\": \"7:04 pm\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"C\",\r\n    \"descripcion\": \"Camiseta seleccion argentina\",\r\n    \"codigo\": 1000,\r\n    \"foto\": \"https://d3ugyf2ht6aenh.cloudfront.net/stores/001/312/744/products/etruyiuiiokjhjkln1-0da055d4a2feeee72416673260655982-1024-1024.png\",\r\n    \"precio\": 15500,\r\n    \"strock\": 15,\r\n    \"id\": 3,\r\n    \"timestamp\": \"7:04 pm\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
