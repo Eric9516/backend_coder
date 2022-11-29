@@ -63,14 +63,27 @@ class Contenedor {
 		}
 	};
 
-	updateById = async (id, title, price, thumbnail) => {
+	updateById = async (
+		id,
+		timestramp,
+		nombre,
+		descripcion,
+		codigo,
+		foto,
+		precio,
+		stock
+	) => {
 		try {
 			const productos = await this.getAll();
 			const item = productos.find((prod) => prod.id == id);
 			if (item) {
-				item.title = title;
-				item.price = price;
-				item.thumbnail = thumbnail;
+				item.timestramp = timestramp;
+				item.nombre = nombre;
+				item.descripcion = descripcion;
+				item.codigo = codigo;
+				item.foto = foto;
+				item.precio = precio;
+				item.stock = stock;
 				console.log(item);
 				await fs.promises.writeFile(
 					this.archivo,

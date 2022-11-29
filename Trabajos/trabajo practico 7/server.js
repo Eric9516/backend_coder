@@ -93,22 +93,11 @@ routerProducts.put(
 	}
 );
 
-routerProducts.delete(
-	"/:id",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		const { id } = req.params;
-		await container.deleteById(id);
-		res.json("Producto borrado");
-	}
-);
+routerProducts.delete("/:id", async (req, res) => {
+	const { id } = req.params;
+	await container.deleteById(id);
+	res.json("Producto borrado");
+});
 
 //Carrito-------------------------------------------------------
 
@@ -116,10 +105,12 @@ const cartContainer = require("./containers/cartContainer");
 const cartCont = new cartContainer();
 
 routerCart.get("/", async (req, res) => {
-	const cartList = await cartCont.getAll();
-	cartList.length > 0
-		? res.json(cartList)
-		: res.json({ error: true, msj: "Carrito vacío" });
+	try {
+		const cartList = await cartCont.getAll();
+		res.json({ cartList });
+	} catch (error) {
+		res.json({ error: true, msj: error });
+	}
 });
 
 routerCart.get("/:id/productos", async (req, res) => {
@@ -130,27 +121,15 @@ routerCart.get("/:id/productos", async (req, res) => {
 		: res.json({ error: true, msj: "id no encontrado" });
 });
 
-routerCart.post(
-	"/",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		const body = req.body;
-		console.log(body);
-		try {
-			const newProduct = await cartCont.save(body);
-			res.json({ success: true, msj: "Producto agregado al carrito" });
-		} catch (error) {
-			res.json({ error: true, msj: error });
-		}
+routerCart.post("/", async (req, res) => {
+	const bodyCart = req.body;
+	try {
+		const newProduct = await cartCont.save(bodyCart);
+		res.json({ success: true, msj: "Producto agregado al carrito" });
+	} catch (error) {
+		res.json({ error: true, msj: error });
 	}
-);
+});
 
 routerCart.post("/:id/productos", async (req, res) => {
 	const { id } = req.params;
@@ -173,28 +152,27 @@ routerCart.put(
 	async (req, res) => {
 		try {
 			const id = req.params.id;
-			const { title, price, thumbnail } = req.body;
-			await cartCont.updateById(id, title, price, thumbnail);
-			res.send("El producto se actualizo correctamente");
+			const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
+				req.body;
+			await cartCont.updateById(
+				id,
+				timestramp,
+				nombre,
+				descripcion,
+				codigo,
+				foto,
+				precio,
+				stock
+			);
+			res.json("El producto se actualizo correctamente");
 		} catch (error) {
-			res.json({ error: true, msj: error });
+			res.json({ error: "Producto no encontrado" });
 		}
 	}
 );
 
-routerCart.delete(
-	"/:id",
-	(admin = (req, res, next) => {
-		if (administrador) {
-			res.send("Acceso permitido");
-			next();
-		} else {
-			res.send("acceso denegado");
-		}
-	}),
-	async (req, res) => {
-		const { id } = req.params;
-		await cartCont.deleteById(id);
-		res.json("Producto borrado");
-	}
-);
+routerCart.delete("/:id", async (req, res) => {
+	const { id } = req.params;
+	await cartCont.deleteById(id);
+	res.json("Producto borrado");
+});
