@@ -24,19 +24,27 @@ app.get("/", (req, res) => {
 });
 
 routerProducts.get("/", async (req, res) => {
-	const productList = await container.getAll();
-	productList.length > 0
-		? res.json(productList)
-		: res.json({ error: true, msj: "No hay productos cargados" });
+	try {
+		const productList = await container.getAll();
+		productList.length > 0
+			? res.json(productList)
+			: res.json({ error: true, msj: "No hay productos cargados" });
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 routerProducts.get("/:id", async (req, res) => {
-	const { id } = req.params;
-	const product = await container.getById(id);
-	if (product) {
-		res.send({ success: true, product: product });
-	} else {
-		res.json({ error: true, msj: "id no encontrado" });
+	try {
+		const { id } = req.params;
+		const product = await container.getById(id);
+		if (product) {
+			res.send({ success: true, product: product });
+		} else {
+			res.json({ error: true, msj: "id no encontrado" });
+		}
+	} catch (error) {
+		console.log(error);
 	}
 });
 
@@ -115,17 +123,25 @@ routerCart.get("/", async (req, res) => {
 });
 
 routerCart.get("/:id/productos", async (req, res) => {
-	const { id } = req.params;
-	const product = await cartCont.getById(id);
-	product
-		? res.json({ success: true, product })
-		: res.json({ error: true, msj: "id no encontrado" });
+	try {
+		const { id } = req.params;
+		const product = await cartCont.getById(id);
+		product
+			? res.json({ success: true, product })
+			: res.json({ error: true, msj: "id no encontrado" });
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 routerCart.post("/", verificacion, async (req, res) => {
-	const cart = new Cart();
-	cartCont.save(cart);
-	res.json({ msj: "Carrito creado" });
+	try {
+		const cart = new Cart();
+		cartCont.save(cart);
+		res.json({ msj: "Carrito creado" });
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 routerCart.post("/:id/productos/:id_prod", verificacion, async (req, res) => {
@@ -147,33 +163,41 @@ routerCart.post("/:id/productos/:id_prod", verificacion, async (req, res) => {
 });
 
 routerCart.delete("/:id", verificacion, async (req, res) => {
-	const { id } = req.params;
-	const productos = await cartCont.getAll();
-	const productoEncontrado = await productos.find((e) => e.id == id);
-	if (productoEncontrado == undefined) {
-		res.json({ error: true, msj: "Carrito no encontrado" });
-	} else {
-		await cartCont.deleteById(id);
-		res.json({ succes: true, msj: "Carrito eliminado correctamente" });
+	try {
+		const { id } = req.params;
+		const productos = await cartCont.getAll();
+		const productoEncontrado = await productos.find((e) => e.id == id);
+		if (productoEncontrado == undefined) {
+			res.json({ error: true, msj: "Carrito no encontrado" });
+		} else {
+			await cartCont.deleteById(id);
+			res.json({ succes: true, msj: "Carrito eliminado correctamente" });
+		}
+	} catch (error) {
+		console.log(error);
 	}
 });
 
 routerCart.delete("/:id/productos/:id_prod", async (req, res) => {
-	const { id, id_prod } = req.params;
+	try {
+		const { id, id_prod } = req.params;
 
-	const productos = await cartCont.getAll();
-	const productoEncontrado = await productos.find((e) => e.id == id);
-	const cart = await cartCont.getById(+id);
-	const elementIndex = cart.productos.findIndex((el) => el.id == +id_prod);
-	if (elementIndex !== -1) {
-		cart.productos.splice(elementIndex, 1);
-		const carritoActual = await cartCont.updateCartById(
-			id,
-			cart.timestamp,
-			cart.productos
-		);
-		res.json({ success: true, msj: "Producto eliminado correctamente" });
-	} else {
-		res.json({ error: true, msj: "ID de producto no encontrado" });
+		const productos = await cartCont.getAll();
+		const productoEncontrado = await productos.find((e) => e.id == id);
+		const cart = await cartCont.getById(+id);
+		const elementIndex = cart.productos.findIndex((el) => el.id == +id_prod);
+		if (elementIndex !== -1) {
+			cart.productos.splice(elementIndex, 1);
+			const carritoActual = await cartCont.updateCartById(
+				id,
+				cart.timestamp,
+				cart.productos
+			);
+			res.json({ success: true, msj: "Producto eliminado correctamente" });
+		} else {
+			res.json({ error: true, msj: "ID de producto no encontrado" });
+		}
+	} catch (error) {
+		console.logg(error);
 	}
 });
