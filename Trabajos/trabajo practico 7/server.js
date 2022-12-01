@@ -53,34 +53,57 @@ routerProducts.post("/", verificacion, async (req, res) => {
 routerProducts.put("/:id", verificacion, async (req, res) => {
 	try {
 		const id = req.params.id;
-		const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
-			req.body;
-		await container.updateById(
-			id,
-			timestramp,
-			nombre,
-			descripcion,
-			codigo,
-			foto,
-			precio,
-			stock
-		);
-		res.json("El producto se actualizo correctamente");
+		const productos = await container.getAll();
+		const productoEncontrado = await productos.find((e) => e.id == id);
+		if (productoEncontrado) {
+			const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
+				req.body;
+			await container.updateById(
+				id,
+				timestramp,
+				nombre,
+				descripcion,
+				codigo,
+				foto,
+				precio,
+				stock
+			);
+			res.json("El producto se actualizo correctamente");
+		} else {
+			res.json({
+				error: true,
+				msj: "No existe un producto con el ID ingresado",
+			});
+		}
 	} catch (error) {
-		res.json({ error: "Producto no encontrado" });
+		console.log(error);
 	}
 });
 
 routerProducts.delete("/:id", verificacion, async (req, res) => {
-	const { id } = req.params;
-	await container.deleteById(id);
-	res.json("Producto borrado");
+	try {
+		const { id } = req.params;
+		const productos = await container.getAll();
+		const productoEncontrado = await productos.find((e) => e.id == id);
+		if (productoEncontrado) {
+			await container.deleteById(id);
+			res.json("Producto borrado");
+		} else {
+			res.json({
+				error: true,
+				msj: "No existe un producto con el ID ingresado",
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 //Carrito-------------------------------------------------------
 
 const cartContainer = require("./containers/cartContainer");
 const cartCont = new cartContainer();
+const Cart = require("./containers/cart.js");
 
 routerCart.get("/", async (req, res) => {
 	try {
@@ -100,46 +123,57 @@ routerCart.get("/:id/productos", async (req, res) => {
 });
 
 routerCart.post("/", verificacion, async (req, res) => {
-	const bodyCart = req.body;
+	const cart = new Cart();
+	cartCont.save(cart);
+	res.json({ msj: "Carrito creado" });
+});
+
+routerCart.post("/:id/productos/:id_prod", verificacion, async (req, res) => {
 	try {
-		const newProduct = await cartCont.save(bodyCart);
+		const { id, id_prod } = req.params;
+		const productoPedido = await container.getById(+id_prod);
+		const carritos = await cartCont.getAll();
+		const carritoSeleccionado = carritos.find((item) => item.id == id);
+		const nuevoProducto = [...carritoSeleccionado.productos, productoPedido];
+		cartCont.updateCartById(
+			carritoSeleccionado.id,
+			carritoSeleccionado.timestamp,
+			nuevoProducto
+		);
 		res.json({ success: true, msj: "Producto agregado al carrito" });
 	} catch (error) {
-		res.json({ error: true, msj: error });
-	}
-});
-
-routerCart.post("/:id/productos", verificacion, async (req, res) => {
-	const { id } = req.params;
-	const productoPedido = await container.getById(+id);
-	const body = productoPedido;
-	await cartCont.save(body);
-	res.json(productoPedido);
-});
-
-routerCart.put("/:id", verificacion, async (req, res) => {
-	try {
-		const id = req.params.id;
-		const { timestramp, nombre, descripcion, codigo, foto, precio, stock } =
-			req.body;
-		await cartCont.updateById(
-			id,
-			timestramp,
-			nombre,
-			descripcion,
-			codigo,
-			foto,
-			precio,
-			stock
-		);
-		res.json("El producto se actualizo correctamente");
-	} catch (error) {
-		res.json({ error: "Producto no encontrado" });
+		console.log(error);
 	}
 });
 
 routerCart.delete("/:id", verificacion, async (req, res) => {
 	const { id } = req.params;
-	await cartCont.deleteById(id);
-	res.json("Producto borrado");
+	const productos = await cartCont.getAll();
+	const productoEncontrado = await productos.find((e) => e.id == id);
+	if (productoEncontrado == undefined) {
+		res.json({ error: true, msj: "Carrito no encontrado" });
+	} else {
+		await cartCont.deleteById(id);
+		res.json({ succes: true, msj: "Carrito eliminado correctamente" });
+	}
+});
+
+routerCart.delete("/:id/productos/:id_prod", async (req, res) => {
+	const { id, id_prod } = req.params;
+
+	const productos = await cartCont.getAll();
+	const productoEncontrado = await productos.find((e) => e.id == id);
+	const cart = await cartCont.getById(+id);
+	const elementIndex = cart.productos.findIndex((el) => el.id == +id_prod);
+	if (elementIndex !== -1) {
+		cart.productos.splice(elementIndex, 1);
+		const carritoActual = await cartCont.updateCartById(
+			id,
+			cart.timestamp,
+			cart.productos
+		);
+		res.json({ success: true, msj: "Producto eliminado correctamente" });
+	} else {
+		res.json({ error: true, msj: "ID de producto no encontrado" });
+	}
 });

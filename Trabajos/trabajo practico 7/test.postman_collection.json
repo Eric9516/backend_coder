@@ -86,7 +86,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos",
+					"raw": "http://localhost:8080/api/carrito/1/productos/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -94,7 +94,10 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"productos"
+						"carrito",
+						"1",
+						"productos",
+						"3"
 					]
 				}
 			},
@@ -227,28 +230,6 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/carrito/3/productos",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/carrito/3/productos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"carrito",
-						"3",
-						"productos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "http://localhost:8080/api/carrito",
 			"request": {
 				"method": "POST",
@@ -272,6 +253,28 @@
 					"path": [
 						"api",
 						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/carrito/3/productos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/3/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"3",
+						"productos"
 					]
 				}
 			},
@@ -308,9 +311,9 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/api/carrito/1",
+			"name": "http://localhost:8080/api/carrito/1/productos/3",
 			"request": {
-				"method": "PUT",
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -322,7 +325,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carrito/2",
+					"raw": "http://localhost:8080/api/carrito/1/productos/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -331,7 +334,9 @@
 					"path": [
 						"api",
 						"carrito",
-						"2"
+						"1",
+						"productos",
+						"3"
 					]
 				}
 			},

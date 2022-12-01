@@ -95,6 +95,29 @@ class contenedorCarrito {
 			console.log(error);
 		}
 	};
+
+	updateCartById = async (id, timestamp, productos) => {
+		try {
+			const products = await this.getAll();
+			const isInProductsList = products.find(
+				(prod) => Number(prod.id) === Number(id)
+			);
+			const indexItem = products.findIndex(
+				(prod) => Number(prod.id) === Number(id)
+			);
+			if (isInProductsList != undefined) {
+				const objeto = { timestamp: timestamp, productos: productos, id: id };
+				products[indexItem] = objeto;
+				console.log(objeto);
+				fs.writeFileSync(this.archivo, JSON.stringify(products, null, 2));
+				return true;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.log("error");
+		}
+	};
 }
 
 const contenedor = new contenedorCarrito();
