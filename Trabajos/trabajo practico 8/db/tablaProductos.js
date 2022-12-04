@@ -1,4 +1,5 @@
-const { knex } = require("../config/knex.js");
+const { mysql } = require("../config/knex.js");
+const knex = require("knex")(mysql);
 
 knex.schema
   .createTable("productos", (table) => {
