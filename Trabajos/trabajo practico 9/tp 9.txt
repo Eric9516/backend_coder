@@ -1,0 +1,87 @@
+Crear una base de datos llamada ecommerce:
+ 
+use ecommerce
+
+Crear dos colecciones, mensajes y productos:
+
+	db.createCollection("mensajes")
+	db.createCollection("producotos")
+
+1) Agregar 10 documentos a las colecciones mensajes y productos:
+
+	db.productos.insertMany([
+		{id: 1, nombre: "monitor samsung", precio: 4999, imagen: "https://images.samsung.com/is/image/samsung/p6pim/ar/lf27t350fhlczb/gallery/ar-t35f-388813-lf27t350fhlczb-456992076?$650_519_PNG$"},
+		{id: 2, nombre: "monitor lg", precio: 5070, imagen: "https://http2.mlstatic.com/D_NQ_NP_796197-MLA51838557740_102022-O.jpg"},
+		{id: 3, nombre: "monitor philips", precio: 3000, imagen: "https://images.philips.com/is/image/PhilipsConsumer/271E1SCA_55-IMS-es_AR?$jpglarge$&wid=960"},
+		{id: 4, nombre: "teclado", precio: 1050, imagen: "https://gorilagames.com/img/Public/1019-producto-teclado-t-dagger-bora-rgb-1-1420.jpg"},
+		{id: 5, nombre: "teclado", precio: 2040, imagen: "https://http2.mlstatic.com/D_NQ_NP_944449-MLA50305077491_062022-O.jpg"},
+		{id: 6, nombre: "parlante", precio: 800, imagen: "https://www.wmac.com.ar/image/cache/catalog/parlantepc092-500x500.png"},
+		{id: 7, nombre: "parlante", precio: 1240, imagen: "http://d3ugyf2ht6aenh.cloudfront.net/stores/001/131/056/products/parlantepc1-0825123c852b5fa0f016317381414891-640-0.png"},
+		{id: 8, nombre: "mouse", precio: 5070, imagen: "https://www.comeros.com.ar/wp-content/uploads/2021/08/Comeros-LOGITECH-910-004053-1.jpg"},
+		{id: 9, nombre: "mouse", precio: 1560, imagen: "https://resource.logitech.com/content/dam/gaming/en/products/g502-lightspeed-gaming-mouse/g502-lightspeed-gallery-1.png"},
+		{id: 10, nombre: "mouse pad", precio: 850, imagen: "https://www.venex.com.ar/products_images/1602175862_flickxl_pngweb_61.png"}
+	])
+
+	db.mensajes.insertMany([
+		{mensaje: "Hola!", nombre: "Eric"},
+		{mensaje: "como va?", nombre: "Eric"},
+		{mensaje: "Hola!", nombre: "Paulina"},
+		{mensaje: "Bien y vos?", nombre: "Paulina"},
+		{mensaje: "ok", nombre: "Eric"},
+		{mensaje: ":)", nombre: "Eric"},
+		{mensaje: "gdf", nombre: "Mile"},
+		{mensaje: "gfd", nombre: "Eric"},
+		{mensaje: "bcv", nombre: "Sandra"},
+		{mensaje: "bc", nombre: "Eric"}
+	])
+
+2) Listar todos los documentos en cada colección:
+
+	db.productos.find().pretty()
+	db.mensajes.find().pretty()
+ 
+3) Mostrar la cantidad de documentos almacenados en cada una de ellas:
+
+	db.productos.estimatedDocumentCount()
+	db.mensajes.estimatedDocumentCount()
+
+4) Agregar un producto más en la colección de productos:
+
+	db.productos.insertOne({id:11, nombre: "Motorola moto e20", precio: 3850, imagen: "https://armoto.vtexassets.com/arquivos/ids/162873-800-auto?v=637955909650100000&width=800&height=auto&aspect=true"})
+
+5) Listar los productos con precio menor a 1000 pesos:
+
+	db.productos.find({precio: {$lt:1000} })
+
+6) Listar los productos con precio entre los 1000 a 3000 pesos:
+
+	db.productos.find({ $and: [{ precio: { $gte: 1000 } }, { precio: { $lte: 3000 } }] })
+
+7) Listar los productos con precio mayor a 3000 pesos:
+
+	db.productos.find({ precio: { $gt: 3000 } })
+
+8) Realizar una consulta que traiga sólo el nombre del tercer producto más barato:
+ 
+	db.productos.find().sort({ precio: 1 }).skip(2).limit(1)
+
+9) Hacer una actualización sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100:
+
+	db.productos.updateMany({}, { $set: { stock: 100 } })
+
+10) Cambiar el stock a cero de los productos con precios mayores a 4000 pesos:
+
+	db.productos.updateMany({ precio: { $gt: 4000 } }, { $set: { stock: 0 } })
+
+11) Borrar los productos con precio menor a 1000 pesos:
+
+	db.productos.deleteMany({ precio: { $lt: 1000 } })
+
+12) Crear un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce:
+
+	db.createUser({ user: "pepe", pwd: "asd456", roles: [{ role: "read", db: "ecommerce" }] })
+mongo -u pepe -p asd456
+ 
+13) Verificar que pepe no pueda cambiar la información:
+
+	db.productos.insertOne({ nombre: "celular" })
