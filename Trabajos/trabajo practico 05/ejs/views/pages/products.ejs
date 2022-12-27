@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="body_products">
+  <%- include('../partials/navbar'); %>
+  <%if(products.length > 0){%>
+  <div class="contenedor_padre">
+    <h1>Vista de productos</h1>
+    <div class="encabezado">
+      <h3>Nombre</h3>
+      <h3>Precio</h3>
+      <h3>Foto</h3>
+    </div>
+    <% products.forEach((item)=>{ %>
+    <div class="contenedor_productos">
+      <p><%=item.title%></p>
+      <p>$<%=item.price%></p>
+      <div class="contenedor_imagen">
+        <img src="<%=item.thumbnail %>" />
+      </div>
+    </div>
+
+    <% }) %>
+    <% }else{ %>
+    <h2 class="lista_vacia">No se encontraron productos</h2>
+    <% } %>
+  </div>
+
+
+</body>
+
+</html>
